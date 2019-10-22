@@ -1,0 +1,144 @@
+
+        ####### To students table ########
+
+
+# Student.create(name: "Mike", grade: "6th")
+# Student.create(name: "Jake", grade: "6th")
+# Student.create(name: "Sara", grade: "6th")
+# Student.create(name: "Vacondio", grade: "6th")
+# Student.create(name: "Stefan", grade: "6th")
+# Student.create(name: "Alexander", grade: "6th")
+# Student.create(name: "Stephen", grade: "6th")
+# Student.create(name: "John", grade: "6th")
+# Student.create(name: "Alexei", grade: "6th")
+# Student.create(name: "Stephen", grade: "6th")
+# Student.create(name: "Mark", grade: "6th")
+# Student.create(name: "Kengo", grade: "6th")
+# Student.create(name: "Sanford", grade: "6th")
+# Student.create(name: "Timothy", grade: "6th")
+# Student.create(name: "Bruno", grade: "6th")
+# Student.create(name: "Andreas", grade: "6th")
+# Student.create(name: "Marius", grade: "6th")
+# Student.create(name: "Daiva", grade: "6th")
+# Student.create(name: "Sara", grade: "6th")
+# Student.create(name: "Troy", grade: "6th")
+# Student.create(name: "Nick", grade: "6th")
+# Student.create(name: "Christoph", grade: "6th")
+# Student.create(name: "Michael", grade: "6th")
+
+# Student.create(name: "Samuel", grade: "7th")
+# Student.create(name: "Olaf", grade: "7th")
+# Student.create(name: "Oscar", grade: "7th")
+# Student.create(name: "Barack", grade: "7th")
+# Student.create(name: "Pierre", grade: "7th")
+# Student.create(name: "Brett", grade: "7th")
+# Student.create(name: "Silviu", grade: "7th")
+# Student.create(name: "Robert", grade: "7th")
+# Student.create(name: "Stephen", grade: "7th")
+# Student.create(name: "Daniel", grade: "7th")
+# Student.create(name: "Alexei", grade: "7th")
+# Student.create(name: "Stephen", grade: "7th")
+# Student.create(name: "Nick", grade: "7th")
+# Student.create(name: "Kengo", grade: "7th")
+# Student.create(name: "Xiaobo", grade: "7th")
+# Student.create(name: "Timothy", grade: "7th")
+# Student.create(name: "Wilson", grade: "7th")
+# Student.create(name: "George", grade: "7th")
+# Student.create(name: "Vaidas", grade: "7th")
+# Student.create(name: "Christoph", grade: "7th")
+# Student.create(name: "Jan", grade: "7th")
+# Student.create(name: "Raffael", grade: "7th")
+# Student.create(name: "Derek", grade: "7th")
+# Student.create(name: "Duff", grade: "7th")
+# Student.create(name: "Abdias", grade: "7th")
+
+# Student.create(name: "Xiaobo", grade: "8th")
+# Student.create(name: "Thomas", grade: "8th")
+# Student.create(name: "Daiva", grade: "8th")
+# Student.create(name: "Colin", grade: "8th")
+# Student.create(name: "Roman", grade: "8th")
+# Student.create(name: "Duff", grade: "8th")
+# Student.create(name: "Michael", grade: "8th")
+# Student.create(name: "Debbie", grade: "8th")
+# Student.create(name: "Boesch", grade: "8th")
+# Student.create(name: "Oberndorfer", grade: "8th")
+# Student.create(name: "Johnson", grade: "8th")
+# Student.create(name: "Lira", grade: "8th")
+# Student.create(name: "Ardelean", grade: "8th")
+# Student.create(name: "McKenzie", grade: "8th")
+# Student.create(name: "Choutet", grade: "8th")
+# Student.create(name: "Rollo", grade: "8th")
+# Student.create(name: "Pena", grade: "8th")
+# Student.create(name: "Druemmer", grade: "8th")
+# Student.create(name: "Chantaraud", grade: "8th")
+# Student.create(name: "Smith", grade: "8th")
+# Student.create(name: "Wagner", grade: "8th")
+# Student.create(name: "Mettyear", grade: "8th")
+# Student.create(name: "Cohen", grade: "8th")
+
+     ######to teachers table ########
+
+# Teacher.create(name: "Choutet", grade: "6th", subject: "Math")
+# Teacher.create(name: "Rollo", grade: "6th", subject: "Science")
+# Teacher.create(name: "Pena", grade: "6th", subject: "Lang_Arts")
+# Teacher.create(name: "Druemmer", grade: "6th", subject: "Social Studies")
+# Teacher.create(name: "Chantaraud", grade: "7th", subject: "Math")
+# Teacher.create(name: "Smith", grade: "7th", subject: "Science")
+# Teacher.create(name: "Wagner", grade: "7th", subject: "Lang_Arts")
+# Teacher.create(name: "Mettyear", grade: "7th", subject: "Social Studies")
+# Teacher.create(name: "Cohen", grade: "8th", subject: "Math")
+# Teacher.create(name: "Wagner", grade: "8th", subject: "Science")
+# Teacher.create(name: "Mettyear", grade: "8th", subject: "Lang_Arts")
+# Teacher.create(name: "Cohen", grade: "8th", subject: "Social Studies")
+
+  ######to grades table ########
+
+
+
+
+
+  def  create_subject
+    student_ar = Student.all 
+    teacher_ar = Teacher.all
+    student_ar.each do |student|
+        teacher_ar.each do |teacher|
+            if teacher.grade == student.grade
+                (subject= StudentsTeacher.new(student_id: student.id, teacher_id: teacher.id, grade: student.grade, subject: teacher.subject) 
+                subject.save)
+            end
+        end 
+    end
+  end 
+  create_subject
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
