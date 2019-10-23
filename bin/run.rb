@@ -92,26 +92,27 @@ def delete_student_grade(h)
 end
 
 
-                           ########### Generate student grade"###########
+                           ########### Get Teacher report"###########
                            ##############################################
 
 
 
 
 ## final_grade return an array of (id, final_score)
-def final_grades
-    ar = Student.all.map {|student| {id: student.id, name: student.name}}
-    ar.map do |v| 
+def final_grades                    ####done
+    ar=Grade.all.map{|s| s.student_id}.uniq
+    ar.map do |s|
         sum = 0
         i = 0
         Grade.all.each do |grade|
-            if grade.student_id == v[:id]
+            if grade.student_id == s
                  (sum += grade.percentage_grade
                  i += 1)
              end
            end
-        {id: v[:id], name: v[:name], final_grade: sum.to_f/i.to_f}
-    end     
+        g=Grade.find_by(student_id: s)
+        {id: s, name: g.student.name, final_grade: sum.to_f/i.to_f}
+        end
 end
 
 
@@ -123,23 +124,21 @@ def highest_grade_in_all_subjects
     puts "  "
 end
 
-def highest_final_grade
-
-end
-
-def final_grade_for(name)
-    o=Student.find_by(name: name)
-    f=final_grades.select{|h| h[:id]==o.id}
-    puts "The final grade for #{name} is: #{f[0][:final_score]}"
-end
-
 # list_of_students_score_less_than take a score X as argement and select the student who got less than X score
-def list_of_students_score_less_than(x)
-    final_grades.select{|student| student[:final_score]<x}
+def list_of_students_score_less_than(x)      ####done
+    final_grades.select{|student| student[:final_grade] < x }
+end
+
+def list_grades_for_class(grade, subject, term)        ####done
+
+    ar1 =Student.all.select{|s| s.grade == grade}
+    ar2 = ar1.map{|s| s.id}
+    ar3 = Grade.all.select { |m| m.subject == subject && m.term == term && ar2.include?(m.student_id)}
+    ar4 = ar3.map{|s| {name: s.student.name, percentage_grade: s.percentage_grade}}
 end
 
 
-def average_score_for_class(grade,subject)
+def average_score_for_class(grade, subject)
     ar1 =Student.all.select{|s| s.grade == grade}
     ar2 = ar1.map{|s| s.id}
     ar3 = Grade.all.select { |m| m.subject == subject && ar2.include?(m.student_id)}
@@ -148,9 +147,45 @@ def average_score_for_class(grade,subject)
     teacher_name= Teacher.find_by(grade: grade, subject: subject)[:name]
     puts " "
     puts "The Average grade for #{teacher_name} teacher is: #{averege.round(2)}"
+    puts " "
     puts "       subject: #{subject}, #{grade} grade     " 
     puts " "
 end
-# binding.pry
-# 0
+def highest_final_grade
+
+end
+                           ########### Generate student grade"###########
+                           ##############################################
+def final_grade_for(name)
+    o=Student.find_by(name: name)
+    f=final_grades.select{|h| h[:id]==o.id}
+    f[0][:final_grade]
+end
+
+def average_grade_for_student_in_subject(name, subject)
+    o=Student.find_by(name: name)
+    f=Grade.all.select{|h| h[:student_id] == o.id && h[:subject] == subject}
+    sum=0
+    i=0
+    ave=0
+    f.each do |g|
+        sum += g.percentage_grade
+        i += 1
+        ave=sum.to_f/i.to_f
+    end
+    ave
+end
+
+def average_grade_for_student_in_all_subject(name)
+    if Student.find_by(name: name)
+        math = average_grade_for_student_in_subject(name,"Math")
+        science = average_grade_for_student_in_subject(name,"Science")
+        lang_arts = average_grade_for_student_in_subject(name,"Lang_Arts")
+        social_studies = average_grade_for_student_in_subject(name,"Social Studies")
+        ar=[math, science, lang_arts,social_studies]
+      else puts "This student name is not exist in the record"
+    end
+end
+#  binding.pry
+#  0
 # menus
