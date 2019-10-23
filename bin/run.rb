@@ -1,8 +1,11 @@
 require_relative '../config/environment'
-
-def menus
-    require_relative './menu'
-end
+require_relative './menu'
+#  newMenu = Menu.new()
+#  newMenu.header
+ 
+# def menus
+#     require_relative './menu'
+# end
                             ########## Create new student/teacher ############
                             ##################################################
 ### Enter a new teacher ###
@@ -22,9 +25,19 @@ end
                             ########## Enter a new Student Grade ############
                             ##################################################
 
-def new_student_grade(h)
+def new_student_grade_by_student_id(h)
     Grade.create(student_id: h[:student_id],term: h[:term], year: h[:year], subject: h[:subject], percentage_grade: h[:percentage_grade])
 end
+def new_student_grade_by_student_name(h)
+    s= Student.find_by(name: h[:name], grade: h[:grade])
+    if s
+        Grade.create(student_id: s.id, term: h[:term], year: h[:year], subject: h[:subject], percentage_grade: h[:percentage_grade])
+    else puts " "
+         puts "Sorry this Student name is not in the record"
+         puts " "
+    end
+end
+
                             ########### Update student/teacher/garde info ###########
                             #########################################################
 
@@ -138,6 +151,6 @@ def average_score_for_class(grade,subject)
     puts "       subject: #{subject}, #{grade} grade     " 
     puts " "
 end
-binding.pry
-0
+# binding.pry
+# 0
 # menus
