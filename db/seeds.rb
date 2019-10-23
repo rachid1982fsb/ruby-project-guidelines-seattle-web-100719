@@ -91,26 +91,40 @@
 # Teacher.create(name: "Mettyear", grade: "8th", subject: "Lang_Arts")
 # Teacher.create(name: "Cohen", grade: "8th", subject: "Social Studies")
 
-  ######to grades table ########
+  ######to students_teachers table ########
 
 
 
 
 
-  def  create_subject
-    student_ar = Student.all 
-    teacher_ar = Teacher.all
-    student_ar.each do |student|
-        teacher_ar.each do |teacher|
-            if teacher.grade == student.grade
-                (subject= StudentsTeacher.new(student_id: student.id, teacher_id: teacher.id, grade: student.grade, subject: teacher.subject) 
-                subject.save)
-            end
-        end 
-    end
-  end 
-  create_subject
+#   def  create_subject
+#     student_ar = Student.all 
+#     teacher_ar = Teacher.all
+#     student_ar.each do |student|
+#         teacher_ar.each do |teacher|
+#             if teacher.grade == student.grade
+#                 (subject= StudentsTeacher.new(student_id: student.id, teacher_id: teacher.id, grade: student.grade, subject: teacher.subject) 
+#                 subject.save)
+#             end
+#         end 
+#     end
+#   end 
+#   create_subject
 
+########### to grades table ##########
+
+# Grade.create(student_id: 17, term: "Fall", year: 2019, subject: "Math", percentage_grade: 85)
+# Grade.create(student_id: 18, term: "Fall", year: 2019, subject: "Math", percentage_grade: 90)
+# Grade.create(student_id: 19, term: "Fall", year: 2019, subject: "Math", percentage_grade: 75)
+# Grade.create(student_id: 20, term: "Fall", year: 2019, subject: "Math", percentage_grade: 60)
+# Grade.create(student_id: 21, term: "Fall", year: 2019, subject: "Math", percentage_grade: 98)
+# Grade.create(student_id: 22, term: "Fall", year: 2019, subject: "Math", percentage_grade: 89)
+# Grade.create(student_id: 23, term: "Fall", year: 2019, subject: "Math", percentage_grade: 65)
+# Grade.create(student_id: 24, term: "Fall", year: 2019, subject: "Math", percentage_grade: 67)
+# Grade.create(student_id: 25, term: "Fall", year: 2019, subject: "Math", percentage_grade: 66)
+# Grade.create(student_id: 26, term: "Fall", year: 2019, subject: "Math", percentage_grade: 48)
+# Grade.create(student_id: 27, term: "Fall", year: 2019, subject: "Math", percentage_grade: 88)
+# Grade.create(student_id: 28, term: "Fall", year: 2019, subject: "Math", percentage_grade: 76)
 
 
 

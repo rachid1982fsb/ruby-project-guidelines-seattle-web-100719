@@ -1,4 +1,5 @@
 class Student < ActiveRecord::Base
     has_many :students_teachers
     has_many :teachers, through: :students_teachers
+    has_many :grades
 end

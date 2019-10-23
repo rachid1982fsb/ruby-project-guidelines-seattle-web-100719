@@ -1,6 +1,5 @@
 require_relative 'config/environment'
 require 'sinatra/activerecord/rake'
-#require 'sqlite3'
 desc 'starts a console'
 task :c do
   ActiveRecord::Base.logger = Logger.new(STDOUT)

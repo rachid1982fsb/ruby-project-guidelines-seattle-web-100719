@@ -3,3 +3,5 @@ class ChangeGardeColumnInStudent < ActiveRecord::Migration[5.0]
     change_column(:students, :grade, :string)
   end
 end
+
+
