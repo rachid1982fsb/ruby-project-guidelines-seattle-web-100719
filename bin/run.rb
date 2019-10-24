@@ -26,14 +26,21 @@ end
                             ##################################################
 
 def new_student_grade_by_student_id(h)
-    Grade.create(student_id: h[:student_id],term: h[:term], year: h[:year], subject: h[:subject], percentage_grade: h[:percentage_grade])
+    s= Student.find_by(id: h[:student_id])
+    if s
+        Grade.create(student_id: h[:student_id],term: h[:term], year: h[:year], subject: h[:subject], percentage_grade: h[:percentage_grade])
+    else puts " "
+        puts "Sorry this Student name is not in the record."
+        puts " "
+   end 
 end
+
 def new_student_grade_by_student_name(h)
     s= Student.find_by(name: h[:name], grade: h[:grade])
     if s
         Grade.create(student_id: s.id, term: h[:term], year: h[:year], subject: h[:subject], percentage_grade: h[:percentage_grade])
     else puts " "
-         puts "Sorry this Student name is not in the record"
+         puts "Sorry this Student name is not in the record."
          puts " "
     end
 end
@@ -45,7 +52,7 @@ def update_student(id,h)
    Student.update(id,h)
    if !Student.find_by(id: id) == nil
     Student.update(id,h)
-    else puts "this Student id is not exist"
+    else puts "this Student id is not exist."
     end
 end
 
@@ -59,35 +66,51 @@ def update_student_grade(h)
     grade=Grade.find_by(student_id: h[:student_id], term: h[:term], subject: h[:subject])
     if !grade==nil
         Grade.update(grade[:id],h)
-    else puts "this record is not exist"
+    else puts "This record is not exist."
     end
 end
 
 def update_teacher(id,h)
     if !Teacher.find_by(id: id) == nil
         Teacher.update(id,h)
-    else puts "this Teacher id is not exist"
+    else puts "This Teacher id is not exist."
     end
 end
                             ########### Delete Student/Teacher ###########
                             ##############################################
 
 def delete_student(id)
-    Student.delete(id)
-    StudentsTeacher.delete_by(student_id: id)
-    Grade.delete_by(student_id: id)
+    if !Student.find_by(id: id) == nil
+        Student.delete(id)
+        if !StudentsTeacher.find_by(student_id: id) == nil
+            StudentsTeacher.delete_by(student_id: id)
+        end
+        if !Grade.find_by(student_id: id) == nil
+            Grade.delete_by(student_id: id)
+            puts " The records of Grades with Student ID #{id} has been Deleted. "
+        end
+        puts " The record with Student ID #{id} has been Deleted. "
+    else puts "This Students ID: #{id}  is not exist."
+    end
 end
                             
 def delete_teacher(id)
-    Teacher.delete(id)
-    StudentsTeacher.delete_by(teacher_id: id)
+    if !Teacher.find_by(id: id) == nil
+        Teacher.delete(id)
+        if !StudentsTeacher.find_by(teacher_id: id) == nil
+            StudentsTeacher.delete_by(teacher_id: id)
+        end
+        puts " The record with Teacher ID #{id} has been Deleted. "
+    else puts "This Teacher ID: #{id}  is not exist."
+    end
 end
 
 def delete_student_grade(h)
     grade=Grade.find_by(student_id: h[:student_id], term: h[:term], subject: h[:subject])
     if !grade==nil
         Grade.delete(grade[:id])
-    else puts "this record is not exist"
+        puts "The Student Grade of  #{h} has been Deleted."
+    else puts "This record is not exist."
     end
 end
 
@@ -146,10 +169,11 @@ def average_score_for_class(grade, subject)
     averege =ar4.inject{ |sum, el| sum + el }.to_f/ ar4.size
     teacher_name= Teacher.find_by(grade: grade, subject: subject)[:name]
     puts " "
-    puts "The Average grade for #{teacher_name} teacher is: #{averege.round(2)}"
+    puts "            subject: #{subject}, #{grade} grade     " 
+    puts "   The Average grade for Ms. #{teacher_name} Class is: #{averege.round(2)}"
     puts " "
-    puts "       subject: #{subject}, #{grade} grade     " 
     puts " "
+
 end
 def highest_final_grade
 
@@ -157,9 +181,15 @@ end
                            ########### Generate student grade"###########
                            ##############################################
 def final_grade_for(name)
-    o=Student.find_by(name: name)
-    f=final_grades.select{|h| h[:id]==o.id}
-    f[0][:final_grade].round(2)
+    stu = Student.find_by(name: name)
+    if stu
+        if !stu == []
+            f=final_grades.select{|h| h[:id]==stu.id}
+            f[0][:final_grade].round(2)
+          else puts "Student name: #{name} dose not have gardes yet."
+        end
+      else puts "Student name: #{name} is not exist."
+    end
 end
 
 def average_grade_for_student_in_subject(name, subject)
