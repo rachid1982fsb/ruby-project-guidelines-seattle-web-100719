@@ -159,7 +159,7 @@ end
 def final_grade_for(name)
     o=Student.find_by(name: name)
     f=final_grades.select{|h| h[:id]==o.id}
-    f[0][:final_grade]
+    f[0][:final_grade].round(2)
 end
 
 def average_grade_for_student_in_subject(name, subject)

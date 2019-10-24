@@ -34,26 +34,39 @@ def main_menu
         sub_menu6
     when 7
         5.times{puts " "}
-        puts "#### GOODBEY  ####"
+        puts "#### GOODBYE  ####"
         5.times{puts " "}
     else
       puts "Error: (#{input_s}) is an invalid value  please enter a number 1 to 7"
       puts " "
+      main_menu
     end
     
  
 end  
 
 def header
-    puts " "
-    puts " "
     puts "*****************************************************"
     puts "    ####### Flatiron MOD 1 CLI project ########"
     puts "*****************************************************"
     puts "#######  Generate/Print Middel School grades  #######"
     puts " "
     puts " "
-    main_menu
+    puts " Enter Y to go to the Menu or N to Exit"
+    print " Menu ?"
+    input =""
+    input = gets.chomp
+
+    if  input == "Y" || input == "y" 
+        system("clear")
+        main_menu
+    elsif input == "N" || input == "n"
+        5.times{puts " "}
+        puts "#### GOODBYE  ####"
+        5.times{puts " "}
+    else puts "Error: (#{input}) is an invalid value  please enter a number Y or N"
+        header
+    end
 end
 
 def submenu_create_new_student_teacher
@@ -96,6 +109,8 @@ def submenu_create_new_student_teacher
         puts "Thanks Student info  #{h} has been created "
         puts " "
         puts " "
+        5.times{puts " "}
+        main_menu
     when 2
         puts " "
         puts "Please enter the Teacher information "
@@ -123,16 +138,17 @@ def submenu_create_new_student_teacher
         puts "Thanks Teacher info  #{h} has been created "
         puts " "
         puts " "
-
+        main_menu
     when 3
         main_menu
     when 4
         5.times{puts " "}
-        puts "#### GOODBEY  ####"
+        puts "#### GOODBYE  ####"
         5.times{puts " "}
     else
       puts "Error: (#{input_s}) is an invalid value  please enter a number 1 to 4"
       puts " "
+      submenu_create_new_student_teacher
     end
 end
 
@@ -186,6 +202,7 @@ def submenu_enter_new_student_grade
             puts "Thanks Student Grade info  #{h} has been created "
             puts " "
             puts " "
+            main_menu
         when 2
             puts " "
             puts "Please enter Student Grade information including Student Name and the Grade Level "
@@ -232,12 +249,13 @@ def submenu_enter_new_student_grade
             end
             puts " "
             puts " "
+            main_menu
     
         when 3
             main_menu
         when 4
             5.times{puts " "}
-            puts "#### GOODBEY  ####"
+            puts "#### GOODBYE  ####"
             5.times{puts " "}
         else
           puts "Error: (#{input_s}) is an invalid value  please enter a number 1 to 4"
@@ -271,8 +289,9 @@ def submenu_generate_student_grade
                 g=final_grade_for(input)
                 puts " "
                 puts "          The Final Grade for  Student  #{input} is #{g}"
-                puts "          ###########################################"
+                puts "          ###############################################"
                 puts " "
+                header
             when 2
                 puts " "
                 puts "Average Grade for a Student in a Subject"
@@ -290,6 +309,7 @@ def submenu_generate_student_grade
                 puts "          The Average #{input2} Grade for Student #{input1} is #{avg}"
                 puts "          ##################################################"
                 puts " "
+                header
             when 3
                 puts " "
                 puts "Average Grade for a Student in a ALL Subjects"
@@ -311,14 +331,15 @@ def submenu_generate_student_grade
                 puts "          The Average Lang_Arts Grade is      #{avgs[2]}"
                 puts "          The Average Social Studies Grade is #{avgs[3]}"
                 puts " "
+                header
             when 4
                 main_menu
             when 5
                 5.times{puts " "}
-                puts "####  GOODBEY  ####"
+                puts "####  GOODBYE  ####"
                 5.times{puts " "}
             else
-              puts "Error: (#{input_s}) is an invalid value  please enter a number 1 to 4"
+              puts "Error: (#{input_s}) is an invalid value  please enter a number 1 to 5"
               puts " "
               submenu_generate_student_grade
             end
@@ -326,7 +347,7 @@ end
 def submenu_get_teacher_report
     puts "Enter the number of witch you like to do"
         puts ""
-        puts "  [1] List of Grades for a Class"
+        puts "  [1] List of Grades for a specific  Class"
         puts "  [2] List of Students who's Grade less than: X"
         puts "  [3] List of Final Grades for ALL Students"
         puts "  [4] Average  Grade for a Class"
@@ -363,10 +384,12 @@ def submenu_get_teacher_report
                 puts " "
                 gardes_list.each do |g|
                       puts "       Name: #{g[:name]}          Percentage Grade: #{g[:percentage_grade]}  "
+                      puts " "
                 end
                 puts "                     "
                 puts "          ###########################################"
                 puts " "
+                header
             when 2
                 puts " "
                 puts "List of Students who's Final Grade less than: X"
@@ -386,7 +409,8 @@ def submenu_get_teacher_report
                 students.each do |g|
                     puts "       ID: #{g[:id]}     Name:#{g[:name]}     Final Grade: #{g[:final_grade]}  "
                    end
-                puts " "  
+                puts " " 
+                header 
             when 3
                 puts " "
                 puts "         List of Final Grades for ALL Students"
@@ -425,20 +449,63 @@ def submenu_get_teacher_report
                 average_score_for_class(input1,input2)
                 puts " "
                 puts " "
-                puts " "                          
+                puts " " 
+                header                         
             when 5
                 main_menu
             when 6
                 5.times{puts " "}
-                puts "####  GOODBEY  ####"
+                puts "####  GOODBYE  ####"
                 5.times{puts " "}
             else
-              puts "Error: (#{input_s}) is an invalid value  please enter a number 1 to 4"
+              puts "Error: (#{input_s}) is an invalid value  please enter a number 1 to 6"
               puts " "
-              submenu_generate_student_grade
+              submenu_get_teacher_report
             end
   
 end
+
+# def submenu_delete_data
+#     puts "Enter the number of witch you like to do"
+#         puts ""
+#         puts "  [1] Delete Student"
+#         puts "  [2] Delete Teacher"
+#         puts "  [3] Delete Student Grade"
+#         puts "  [4] Back to the main Menu"
+#         puts "  [5] Exit "
+#         puts" "
+#         puts "Enter  number of witch you like to do"
+#         input_s =""
+#         input_s = gets.chomp
+#         input = input_s.to_i
+#         case input
+#         when 1
+#             puts " "
+#             puts "Please enter the Student information "
+#             puts " "
+#             print "Name: "
+#             input=gets.chomp
+#             h={name: input}
+#             puts "Please enter birthdate on MM/DD/YYYY Format"
+#             puts " "
+#             print "Birthdate:"
+#             input=gets.chomp
+#             h[:birthdate]= input
+#             puts "Please enter Grade level 6th, 7th or 8th"
+#             puts " "
+#             print "Grade Level:"
+#             input=gets.chomp
+#             h[:grade]= input
+#             puts "Please enter Student Gender F or M"
+#             puts " "
+#             print "Gender:"
+#             input=gets.chomp
+#             h[:gender]= input
+#             new_student(h)
+#             puts " "
+
+# end
+
 
 
 
