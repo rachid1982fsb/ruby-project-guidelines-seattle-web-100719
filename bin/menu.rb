@@ -12,7 +12,7 @@ def main_menu
     puts "  [3] Generate Student Grade"
     puts "  [4] Get Teacher report"
     puts "  [5] Delete data"
-    puts "  [6] Update student/teacher/garde info"
+    puts "  [6] Update student/teacher/garde records"
     puts "  [7] Exit "
     puts" "
     puts "        Enter the sub-menu number "
@@ -32,7 +32,7 @@ def main_menu
     when 5
         submenu_delete_data
     when 6
-        sub_menu6
+        submenu_update_student_teacher_garde
     when 7
         exiting
     else
@@ -479,6 +479,7 @@ def submenu_get_teacher_report
 end
 
 def submenu_delete_data
+    header
     puts "       Select From The Following Options:"
     puts ""
     puts "  [1] Delete Student"
@@ -543,6 +544,144 @@ def submenu_delete_data
         end
 end
 
+def submenu_update_student_teacher_garde
+    header
+    puts "       Select From The Following Options:"
+    puts ""
+    puts "  [1] Update Student"
+    puts "  [2] Update Teacher"
+    puts "  [3] Update Student Grade"
+    puts "  [4] Back to the main Menu"
+    puts "  [5] Exit "
+    puts" "
+    puts "      Select From The Following Options:"
+    input_s =""
+    input_s = gets.chomp
+    input = input_s.to_i
+    case input
+        when 1
+            puts" "
+            puts "     Update Student"
+            puts "Enter the Student ID "
+            puts " "
+            print "Student ID: "
+            input=gets.chomp.to_i
+            s= Student.find_by(id: input)
+            if s == nil
+               return puts "The Student ID is invalid "
+            end
+
+            puts "enter [1] to Update Name: #{s.name}"
+            puts "enter [2] to Update Birthdate: #{s.birthdate}"
+            puts "enter [3] to Update Grade Level: #{s.grade}"
+            input=gets.chomp.to_i
+            case input
+            when 1
+                puts "Enter New Name"
+                print "Name: "
+                input=gets.chomp
+                s.name=input
+                s.save
+                puts "   Student record is Updated => #{s.name}, #{s.birthdate}, #{s.grade} grade"
+            when 2
+                puts "Enter Birthdate MM/DD/YYYY"
+                print "Birthdate: "
+                input=gets.chomp.to_date
+                s.birthdate=input
+                s.save
+                puts "   Student record is Updated => #{s.name}, #{s.birthdate}, #{s.grade} grade"
+            when 3
+                puts "Enter Grade Level"
+                print "Grade Level:"
+                input=gets.chomp
+                s.grade=input
+                s.save
+                puts "   Student record is Updated => #{s.name}, #{s.birthdate}, #{s.grade} grade"
+            else puts " Wrong  value Enter 1, 2 or 3 "
+                submenu_update_student_teacher_garde
+            end
+        when 2
+            puts" "
+            puts "     Update Teacher"
+            puts "Enter the Teacher ID "
+            puts " "
+            print "Teacher ID: "
+            input=gets.chomp.to_i
+            s= Teacher.find_by(id: input)
+            if s == nil
+               return puts "The Teacher ID is invalid "
+            end
+
+            puts "enter [1] to Update Name: #{s.name}"
+            puts "enter [2] to Update Birthdate: #{s.birthdate}"
+            puts "enter [3] to Update Grade Level: #{s.grade}"
+            puts "enter [4] to Update Subject: #{s.subject}"
+            input=gets.chomp.to_i
+            case input
+            when 1
+                puts "Enter New Name"
+                print "Name: "
+                input=gets.chomp
+                s.name=input
+                s.save
+                puts "   Teacher record is Updated => #{s.name}, #{s.birthdate}, #{s.subject}, #{s.grade} grade"
+            when 2
+                puts "Enter Birthdate MM/DD/YYYY"
+                print "Birthdate: "
+                input=gets.chomp.to_date
+                s.birthdate=input
+                s.save
+                puts "   Teacher record is Updated => #{s.name}, #{s.birthdate}, #{s.subject}, #{s.grade} grade"
+            when 3
+                puts "Enter Grade Level"
+                print "Grade Level:"
+                input=gets.chomp
+                s.grade=input
+                s.save
+                puts "   Student record is Updated => #{s.name}, #{s.birthdate}, #{s.subject}, #{s.grade} grade"
+            when 4
+                puts "Enter Subject"
+                print "Subject:"
+                input=gets.chomp
+                s.grade=input
+                s.save
+                puts "   Student record is Updated => #{s.name}, #{s.birthdate}, #{s.subject}, #{s.grade} grade"
+            else puts " Wrong  value Enter 1, 2,3 or 4 "
+                submenu_update_student_teacher_garde
+            end
+        when 3
+            puts" "
+            puts "     Delete Student Grade"
+            puts "Enter the Student Grade information."
+            puts " "
+            print "Student ID: "
+            input=gets.chomp
+            h={student_id: input}
+            puts "Enter the Term: Fall, Winter Or Spring."
+            puts " "
+            print "Term:"
+            input=gets.chomp
+            h[:term]= input
+            puts "Enter Subject Math, Science, Lang_Arts or Social Studies."
+            puts " "
+            print "Subject:"
+            input=gets.chomp
+            h[:Subject]= input
+            delete_student_grade(h)
+            puts " "
+            puts " "
+            puts " "
+        when 4
+            main_menu
+        when 5
+            exiting
+        else
+          puts "Error: (#{input_s}) is an invalid value  Enter a number 1 to 5."
+          puts " "
+          submenu_update_student_teacher_garde
+        end
+
+end
 
 
 
